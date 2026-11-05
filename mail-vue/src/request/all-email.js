@@ -1,5 +1,9 @@
 import http from '@/axios/index.js';
 
+export function allEmailDetail(emailId) {
+    return http.get('/allEmail/detail', {params: {emailId}, timeout: 20000})
+}
+
 export function allEmailList(params) {
     return http.get('/allEmail/list', {params: {...params}})
 }

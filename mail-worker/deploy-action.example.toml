@@ -1,4 +1,4 @@
-name = "${NAME}"
+name = "REPLACE_ME"
 main = "src/index.js"
 compatibility_date = "2025-06-04"
 
@@ -11,12 +11,12 @@ custom_domain = true
 
 [[d1_databases]]
 binding = "db"
-database_name = "cloud-mail"
-database_id = "${D1_DATABASE_ID}"
+database_name = "REPLACE_ME"
+database_id = "REPLACE_ME"
 
 [[kv_namespaces]]
 binding = "kv"
-id = "${KV_NAMESPACE_ID}"
+id = "REPLACE_ME"
 
 [[r2_buckets]]
 binding = "r2"
@@ -36,13 +36,13 @@ crons = ["0 * * * *"]	#每小时执行；resetDaySendCount 仅在 UTC 0 点生�
 
 
 [vars]
-ai_model = "${AI_MODEL}"
-analysis_cache = "${ANALYSIS_CACHE}"
+ai_model = "REPLACE_ME"
+analysis_cache = "REPLACE_ME"
 #orm_log = false
-domain = "${DOMAIN}"
-admin = "${ADMIN}"
-jwt_secret = "${JWT_SECRET}"
-project_link = "${PROJECT_LINK}"
+domain = "REPLACE_ME"
+admin = "REPLACE_ME"
+jwt_secret = "REPLACE_ME"
+project_link = "REPLACE_ME"
 
 [build]
 command = "pnpm --prefix ../mail-vue install && pnpm --prefix ../mail-vue run build"

@@ -1,0 +1,23 @@
+[Unit]
+Description=Cloud Mail encrypted body cache
+After=network.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=cloud-mail-cache
+StateDirectoryMode=0700
+EnvironmentFile=/etc/cloud-mail-cache.env
+ExecStart=/usr/bin/python3 /opt/cloud-mail-cache/server.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+MemoryMax=128M
+CPUQuota=20%
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

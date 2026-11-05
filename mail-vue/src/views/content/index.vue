@@ -35,6 +35,8 @@
             <el-alert v-if="email.status === 5" :closable="false" :title="$t('delayed')" class="email-msg" type="warning" show-icon />
           </div>
           <el-scrollbar class="htm-scrollbar" :class="!email.attList?.length ? 'bottom-distance' : ''">
+            <div v-if="detailLoading" role="status">Loading message…</div>
+            <div v-if="detailError" role="alert">{{ detailError }} <button @click="loadDetail">Retry</button></div>
             <ShadowHtml class="shadow-html" :html="formatImage(email.content)" v-if="email.content" />
             <pre v-else class="email-text" >{{email.text}}</pre>
           </el-scrollbar>
@@ -88,7 +90,7 @@ import {getExtName, formatBytes} from "@/utils/file-utils.js";
 import {cvtR2Url,toOssDomain} from "@/utils/convert.js";
 import {getIconByName} from "@/utils/icon-utils.js";
 import {useSettingStore} from "@/store/setting.js";
-import {allEmailDelete} from "@/request/all-email.js";
+import {allEmailDelete, allEmailDetail} from "@/request/all-email.js";
 import {useUiStore} from "@/store/ui.js";
 import {useI18n} from "vue-i18n";
 import {EmailUnreadEnum} from "@/enums/email-enum.js";
@@ -107,6 +109,22 @@ const email = computed(() => emailStore.contentData.email || {
 })
 const showPreview = ref(false)
 const srcList = reactive([])
+const detailLoading = ref(false)
+const detailError = ref('')
+async function loadDetail() {
+  if (emailStore.contentData.delType !== 'physics') return
+  const id = email.value.emailId
+  if (!id || detailLoading.value) return
+  detailLoading.value = true
+  detailError.value = ''
+  try {
+    const full = await allEmailDetail(id)
+    if (emailStore.contentData.email?.emailId === id) emailStore.applyFullList([full])
+  } catch {
+    detailError.value = 'Message could not be loaded.'
+  } finally { detailLoading.value = false }
+}
+onMounted(loadDetail)
 
 const { t } = useI18n()
 watch(() => accountStore.currentAccountId, () => {

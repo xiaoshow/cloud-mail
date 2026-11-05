@@ -26,3 +26,18 @@ mail-vue/dist
 .wrangler
 .venv
 git-tools.js
+
+# Local credentials and generated artifacts
+node_modules/
+.venv/
+__pycache__/
+.DS_Store
+.env*
+wrangler*.toml
+*.sql
+provision-secret.py
+*.log
+*.db
+*.sqlite*
+
+mail-worker/oci-cache/nginx-arm2.conf

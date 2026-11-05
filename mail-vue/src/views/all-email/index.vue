@@ -291,7 +291,7 @@ function jumpContent(email) {
 
 
 function getEmailList(emailId, size) {
-  return emailStore.fetchList(full => allEmailList({emailId, size, full, ...params}))
+  return allEmailList({emailId, size, full: 0, ...params})
 }
 
 async function latest() {
