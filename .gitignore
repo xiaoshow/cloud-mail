@@ -25,3 +25,16 @@ mail-vue/node_modules
 mail-vue/dist
 .wrangler
 .venv
+
+# Local credentials and generated artifacts
+node_modules/
+.venv/
+__pycache__/
+.DS_Store
+.env*
+wrangler*.toml
+*.sql
+provision-secret.py
+*.log
+*.db
+*.sqlite*
